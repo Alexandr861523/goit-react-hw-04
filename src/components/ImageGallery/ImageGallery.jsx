@@ -1,17 +1,22 @@
 import ImageCard from "../ImageCard/ImageCard";
-import css from './ImageGallery.module.css'
+import css from "./ImageGallery.module.css";
 
-const ImageGallery = ({ images, openModal }) => {
-    if (!images || images.length === 0) return null;
-  
-    return (
-      <ul className={css.container}>
-        {images.map((image) => (
-          <li className={css.list} key={image.id} onClick={() => openModal(image)}>
-            <ImageCard image={image} />
-          </li>
-        ))}
-      </ul>
-    );
-  };
-export default ImageGallery;
+export default function ImageGallery({ images, onImageClick }) {
+  return (
+    <ul className={css.imageGalleryList}>
+      {images.map((image) => {
+        return (
+          <ImageCard
+            key={image.id}
+            imageThumbSrc={image.urls.small}
+            imageFullSrc={image.urls.regular}
+            altText={image.alt_description}
+            author={image.user.name}
+            likes={image.likes}
+            onImageClick={onImageClick}
+          />
+        );
+      })}
+    </ul>
+  );
+}

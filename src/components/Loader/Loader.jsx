@@ -1,22 +1,14 @@
-import { RotatingLines } from 'react-loader-spinner'
-import css from './Loader.module.css'
+import { Grid } from "react-loader-spinner";
 
-const Loader = () => {
-    return (
-        <div className={css.loader}>
-             <RotatingLines
-  visible={true}
-  height="150"
-  width="150"
-  color="grey"
-  strokeWidth="5"
-  animationDuration="0.75"
-  ariaLabel="rotating-lines-loading"
-  wrapperStyle={{}}
-  wrapperClass=""
-  />
-        </div>
-    )
-   
+export default function loader() {
+  return (
+    <Grid
+      visible={true}
+      height="40"
+      width="40"
+      color="#FA8A5B"
+      ariaLabel="grid-loading"
+      radius="12.5"
+    />
+  );
 }
-export default Loader;

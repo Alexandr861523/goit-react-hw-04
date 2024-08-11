@@ -1,39 +1,28 @@
-import css from './SearchBar.module.css'
+import { Formik, Form, Field } from "formik";
+import css from "./SearchBar.module.css";
 
-import React from 'react';
-
-import toast, { Toaster } from 'react-hot-toast';
-
-const SearchBar = ({ onSubmit }) => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const query = form.elements.topic.value.trim();
-
-    if (query === '') {
-      toast.error('The field must not be empty.');
-      return;
-    }
-
-    onSubmit(query);
-    form.reset();
-  };
-
+export default function SearchBar({ onSearch }) {
   return (
-    <header>
-      <form className={css.container} onSubmit={handleSubmit}>
-        <input className={css.input}
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-          name="topic"
-        />
-        <button className={css.btn} type="submit">Search</button>
-        <Toaster />
-      </form>
+    <header className={css.searchBar__header}>
+      <Formik
+        initialValues={{ query: "" }}
+        onSubmit={(values, actions) => {
+          onSearch(values.query);
+          actions.resetForm();
+        }}
+      >
+        <Form className={css.searchBar__Form}>
+          <Field
+            className={css.searchBar__Input}
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search by word..."
+            name="query"
+          />
+          <button type="submit">Search</button>
+        </Form>
+      </Formik>
     </header>
   );
-};
-
-export default SearchBar;
+}
